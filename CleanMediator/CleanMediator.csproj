@@ -1,10 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+		<PackageId>CleanMediator</PackageId>
+		<Version>1.0.0</Version>
+		<Authors>Junior Matlou</Authors>
+		<Company>Cadiahk Pty Ltd.</Company>
+		<Description>A lightweight mediator and pipeline behavior system built for Clean Architecture in .NET</Description>
+		<PackageTags>mediator pipeline cqrs clean-architecture dotnet DI</PackageTags>
+
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/yourusername/CleanMediator</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/yourusername/CleanMediator</PackageProjectUrl>
+	</PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
