@@ -14,8 +14,8 @@
 		<PackageTags>mediator pipeline cqrs clean-architecture dotnet DI</PackageTags>
 
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<RepositoryUrl>https://github.com/yourusername/CleanMediator</RepositoryUrl>
-		<PackageProjectUrl>https://github.com/yourusername/CleanMediator</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/CadiahkJR/CleanMediator</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/CadiahkJR/CleanMediator</PackageProjectUrl>
 	</PropertyGroup>
 
   <ItemGroup>
