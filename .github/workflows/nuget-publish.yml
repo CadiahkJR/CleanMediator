@@ -1,0 +1,54 @@
+name: Publish to NuGet
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  publish:
+    name: Build and Push to NuGet
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Extract version from tag
+        id: extract_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+
+      - name: Check if version already exists on NuGet
+        run: |
+          PACKAGE_ID=CleanMediator
+          VERSION=${{ env.VERSION }}
+          echo "Checking if $PACKAGE_ID.$VERSION already exists on NuGet..."
+          EXISTS=$(curl -s https://api.nuget.org/v3-flatcontainer/$PACKAGE_ID/$VERSION/$PACKAGE_ID.$VERSION.nupkg)
+          if [ ! -z "$EXISTS" ]; then
+            echo "❌ Package $PACKAGE_ID.$VERSION already exists. Aborting publish."
+            exit 1
+          fi
+
+      - name: Restore dependencies
+        run: dotnet restore src/CleanMediator/CleanMediator.csproj
+
+      - name: Build project
+        run: dotnet build src/CleanMediator/CleanMediator.csproj --configuration Release --no-restore
+
+      - name: Pack NuGet package with tag version
+        run: dotnet pack src/CleanMediator/CleanMediator.csproj \
+          --configuration Release \
+          --no-build \
+          --output ./nupkg \
+          /p:PackageVersion=${{ env.VERSION }}
+
+      - name: Push package to NuGet
+        run: dotnet nuget push ./nupkg/*.nupkg \
+          --api-key ${{ secrets.NUGET_API_KEY }} \
+          --source https://api.nuget.org/v3/index.json \
+          --skip-duplicate
