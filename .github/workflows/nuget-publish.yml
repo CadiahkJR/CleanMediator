@@ -30,17 +30,10 @@ jobs:
         run: dotnet build CleanMediator/CleanMediator.csproj --configuration Release --no-restore
 
       - name: Pack NuGet package with tag version
-        run: dotnet pack CleanMediator/CleanMediator.csproj \
-          --configuration Release \
-          --no-build \
-          --output ./nupkg \
-          /p:PackageVersion=${{ env.VERSION }}
+        run: dotnet pack "CleanMediator/CleanMediator.csproj" --configuration Release --no-build --output ./nupkg /p:PackageVersion=${{ env.VERSION }}
 
       - name: List packed files
         run: ls -al ./nupkg
 
       - name: Push package to NuGet
-        run: dotnet nuget push ./nupkg/*.nupkg \
-          --api-key ${{ secrets.NUGET_API_KEY }} \
-          --source https://api.nuget.org/v3/index.json \
-          --skip-duplicate
+        run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
