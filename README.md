@@ -9,7 +9,7 @@
 
 ## ✨ Features
 
-- Minimal setup, zero external dependencies
+- Minimal setup, zero external dependencies.
 - Supports both commands (`IRequest`) and queries (`IRequest<T>`)
 - Pipeline behaviors for clean cross-cutting concerns
 - Automatic handler and behavior discovery
