@@ -28,8 +28,8 @@ jobs:
           PACKAGE_ID=CleanMediator
           VERSION=${{ env.VERSION }}
           echo "Checking if $PACKAGE_ID.$VERSION already exists on NuGet..."
-          EXISTS=$(curl -s https://api.nuget.org/v3-flatcontainer/$PACKAGE_ID/$VERSION/$PACKAGE_ID.$VERSION.nupkg)
-          if [ ! -z "$EXISTS" ]; then
+          curl -s "https://api.nuget.org/v3-flatcontainer/$PACKAGE_ID/index.json" > versions.json
+          if grep -q "\"$VERSION\"" versions.json; then
             echo "❌ Package $PACKAGE_ID.$VERSION already exists. Aborting publish."
             exit 1
           fi
@@ -47,6 +47,9 @@ jobs:
           --output ./nupkg \
           /p:PackageVersion=${{ env.VERSION }}
 
+      - name: List packed files
+        run: ls -al ./nupkg
+    
       - name: Push package to NuGet
         run: dotnet nuget push ./nupkg/*.nupkg \
           --api-key ${{ secrets.NUGET_API_KEY }} \
