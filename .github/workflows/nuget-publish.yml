@@ -23,17 +23,6 @@ jobs:
         id: extract_version
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
 
-      - name: Check if version already exists on NuGet
-        run: |
-          PACKAGE_ID=CleanMediator
-          VERSION=${{ env.VERSION }}
-          echo "Checking if $PACKAGE_ID.$VERSION already exists on NuGet..."
-          curl -s "https://api.nuget.org/v3-flatcontainer/$PACKAGE_ID/index.json" > versions.json
-          if grep -q "\"$VERSION\"" versions.json; then
-            echo "❌ Package $PACKAGE_ID.$VERSION already exists. Aborting publish."
-            exit 1
-          fi
-
       - name: Restore dependencies
         run: dotnet restore src/CleanMediator/CleanMediator.csproj
 
@@ -49,7 +38,7 @@ jobs:
 
       - name: List packed files
         run: ls -al ./nupkg
-    
+
       - name: Push package to NuGet
         run: dotnet nuget push ./nupkg/*.nupkg \
           --api-key ${{ secrets.NUGET_API_KEY }} \
