@@ -24,13 +24,13 @@ jobs:
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
 
       - name: Restore dependencies
-        run: dotnet restore src/CleanMediator/CleanMediator.csproj
+        run: dotnet restore CleanMediator/CleanMediator.csproj
 
       - name: Build project
-        run: dotnet build src/CleanMediator/CleanMediator.csproj --configuration Release --no-restore
+        run: dotnet build CleanMediator/CleanMediator.csproj --configuration Release --no-restore
 
       - name: Pack NuGet package with tag version
-        run: dotnet pack src/CleanMediator/CleanMediator.csproj \
+        run: dotnet pack CleanMediator/CleanMediator.csproj \
           --configuration Release \
           --no-build \
           --output ./nupkg \
