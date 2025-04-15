@@ -12,7 +12,8 @@
 		<Company>Cadiahk Pty Ltd.</Company>
 		<Description>A lightweight mediator and pipeline behavior system built for Clean Architecture in .NET</Description>
 		<PackageTags>mediator pipeline cqrs clean-architecture dotnet DI</PackageTags>
-
+		<PackageIcon>CleanMediator.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/CadiahkJR/CleanMediator</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/CadiahkJR/CleanMediator</PackageProjectUrl>
@@ -21,5 +22,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
   </ItemGroup>
-
+	<ItemGroup>
+		<None Include="CleanMediator.png" Pack="true" PackagePath="" />
+		<None Include="README.md" Pack="true" PackagePath="" />
+	</ItemGroup>
 </Project>
